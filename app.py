@@ -1,16 +1,7 @@
-import pyautogui
-import curses
-import random
 from time import sleep
 from src.screen import Screen
 from vec2 import Vec2
 from src.scenes.menu import Menu
-
-def zoom_in():
-    pyautogui.hotkey("ctrl", "+")
-
-def zoom_out():
-    pyautogui.hotkey("ctrl", "-")
 
 
 class Application:
@@ -20,7 +11,7 @@ class Application:
         self.running = False
         self.screen = Screen(w, h)
 
-        self.scenes = {"menu": Menu()}
+        self.scenes = {"menu": Menu(self.screen.size)}
         self.active_scene = "menu"
 
     def run(self):
