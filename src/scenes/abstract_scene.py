@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from objects.abstract_object import AbstractObject
+from src.objects.abstract_object import AbstractObject
 from vec2 import Vec2
 
 class AbstractScene(AbstractObject, ABC):
@@ -8,4 +8,5 @@ class AbstractScene(AbstractObject, ABC):
     
     @abstractmethod
     def update(self) -> str | None:
+        super().update()
         return None

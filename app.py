@@ -4,7 +4,7 @@ import random
 from time import sleep
 from src.screen import Screen
 from vec2 import Vec2
-import math
+from src.scenes.menu import Menu
 
 def zoom_in():
     pyautogui.hotkey("ctrl", "+")
@@ -19,7 +19,9 @@ class Application:
         self.zoom_out = zoom_out
         self.running = False
         self.screen = Screen(w, h)
-        self.scenes = {}
+
+        self.scenes = {"menu": Menu()}
+        self.active_scene = "menu"
 
     def run(self):
         self.running = True
@@ -31,14 +33,12 @@ class Application:
         self.exit()
 
     def update(self):
-        pass
+        self.scenes[self.active_scene].update()
 
     def draw(self):
         self.screen.clear()
 
-        pos1 = Vec2(random.randint(0, 50), random.randint(0, 30))
-        size = Vec2(random.randint(3, 20), random.randint(3, 20))
-        self.screen.draw_box(pos1, pos1 + size, random.randint(0, 2))
+        self.scenes[self.active_scene].draw(self.screen)
 
         self.screen.refresh()
     

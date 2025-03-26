@@ -48,7 +48,7 @@ class Vec2:
         else:
             raise TypeError("Vec2 can be divided only by a number, Vec2(x, y), or Tuple(x, y)")
 
-    def length(self):
+    def length(self) -> float:
         """Возвращает длину (модуль) вектора."""
         return math.sqrt(self.x ** 2 + self.y ** 2)
 
@@ -57,10 +57,14 @@ class Vec2:
         l = self.length()
         return Vec2(self.x / l, self.y / l) if l != 0 else Vec2(0, 0)
 
-    def tuple(self):
+    def tuple(self) -> tuple:
         """Возвращает вектор в виде кортежа (x, y)."""
         return self.x, self.y
 
     def __str__(self):
         """Возвращает строковое представление вектора."""
         return f"({self.x}, {self.y})"
+    
+    def copy(self):
+        """Возвращает новый класс с теми же значениями"""
+        return Vec2(self.x, self.y)
