@@ -1,3 +1,23 @@
-.venv
-__pychace__
-.vscode
+# Игнорирование кэша Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Игнорирование виртуального окружения
+venv/
+.env/
+
+# Игнорирование зависимостей
+*.egg-info/
+pip-log.txt
+
+# Игнорирование IDE и редакторов
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Логи и временные файлы
+*.log
+.DS_Store
