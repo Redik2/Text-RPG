@@ -1,7 +1,7 @@
 from app import Application
 
 def main():
-    app = Application(64, 36, 20, 5)
+    app = Application(96, 54, 1, 5)
 
     app.run()
 
