@@ -7,53 +7,6 @@ from vec2 import Vec2
 # Подключение к Windows API
 kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
 
-# Константы для событий ввода
-INPUT_RECORD_MOUSE_EVENT = 0x0002
-FROM_LEFT_1ST_BUTTON_PRESSED = 0x0001
-
-# Структура COORD для представления координат курсора
-class COORD(ctypes.Structure):
-    _fields_ = [("X", wintypes.SHORT), ("Y", wintypes.SHORT)]
-
-# Структура для хранения информации о событии мыши
-class MOUSE_EVENT_RECORD(ctypes.Structure):
-    _fields_ = [
-        ("dwMousePosition", COORD),
-        ("dwButtonState", wintypes.DWORD),
-        ("dwControlKeyState", wintypes.DWORD),
-        ("dwEventFlags", wintypes.DWORD),
-    ]
-
-# Структура события ввода
-class INPUT_RECORD(ctypes.Structure):
-    _fields_ = [("EventType", wintypes.WORD), ("Event", MOUSE_EVENT_RECORD)]
-
-# Получаем дескриптор консоли
-hStdIn = kernel32.GetStdHandle(-10)  # STD_INPUT_HANDLE
-
-def get_mouse_state():
-    """Возвращает координаты мыши и флаг нажатия кнопки."""
-    # Буфер событий ввода
-    buffer = (INPUT_RECORD * 1)()
-    events_read = wintypes.DWORD()
-
-    # Читаем события консоли
-    if not kernel32.ReadConsoleInputW(hStdIn, buffer, 1, ctypes.byref(events_read)):
-        return None  # Ошибка чтения
-
-    # Проверяем, является ли событие событием мыши
-    if buffer[0].EventType == INPUT_RECORD_MOUSE_EVENT:
-        mouse_event = buffer[0].Event
-
-        # Получаем координаты курсора
-        mx, my = mouse_event.dwMousePosition.X // 2, mouse_event.dwMousePosition.Y  # Два символа = 1 ячейка
-
-        # Проверяем, нажата ли левая кнопка мыши
-        clicked = (mouse_event.dwButtonState & FROM_LEFT_1ST_BUTTON_PRESSED) != 0
-
-        return (mx, my, clicked)
-
-    return None  # Если событие не связано с мышью
 
 class Screen:
     def __init__(self, w: int, h: int):
@@ -66,7 +19,7 @@ class Screen:
             return False
         if len(char) > 1:
             raise TypeError("Can set only one character")
-        self.buffer[round(pos.y)][round(pos.x * 2)] = ord(char)
+        self.buffer[int(pos.y)][round(pos.x * 2)] = ord(char)
         return True
 
     def set_pixel(self, pos: Vec2) -> bool:

@@ -15,7 +15,7 @@ class AbstractObject(ABC):
 
     def draw(self, screen: curses.window) -> None:
         for child in self.children:
-            child.draw()
+            child.draw(screen)
 
     def gpos(self) -> Vec2:
         if not self.parent:
@@ -25,6 +25,7 @@ class AbstractObject(ABC):
     def add_child(self, child):
         self.children.append(child)
         child.parent = self
+        return child
     
     def set_parent(self, new_parent):
         self.parent.children.remove(self)

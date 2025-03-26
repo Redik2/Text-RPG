@@ -8,9 +8,9 @@ class Menu(AbstractScene):
     def __init__(self):
         super().__init__()
         buttons = self.add_child(ButtonsChoice(Vec2(10, 10)))
-        buttons.add_button(Button(Vec2(0, 0), Vec2(20, 5)))
-        buttons.add_button(Button(Vec2(0, 0), Vec2(20, 5)))
-        buttons.add_button(Button(Vec2(0, 0), Vec2(20, 5)))
+        buttons.add_button(Button(Vec2(0, 0), Vec2(20, 4)))
+        buttons.add_button(Button(Vec2(0, 0), Vec2(20, 4)))
+        buttons.add_button(Button(Vec2(0, 0), Vec2(20, 4)))
         self.add_child(Text(Vec2(1, 1), "Menu"))
     
     def update(self):
