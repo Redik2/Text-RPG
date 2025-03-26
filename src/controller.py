@@ -3,7 +3,7 @@ from vec2 import Vec2
 import msvcrt
 
 class Controller:
-    """Класс для обработки нажатий клавиш с защитой от дребезга (перелетов)."""
+    """Класс для обработки нажатий клавиш"""
 
     last_state = {"w": False, "s": False, "a": False, "d": False}
     pressed_per_frame: list[bytes] = []
@@ -24,8 +24,10 @@ class Controller:
     @staticmethod
     def get_vector_change() -> Vec2:
         """
-        Возвращает вектор направления движения (WASD + стрелки),  
+        Возвращает вектор направления движения,  
         но учитывает только изменения (нажатие впервые).
+        
+        :return: Vec2(x, y), где x и y могут быть -1, 0 или 1.
         """
         keys = {
             "left": Controller.is_pressed(b'a'),
@@ -44,7 +46,7 @@ class Controller:
     @staticmethod
     def get_vector() -> Vec2:
         """
-        Возвращает вектор направления движения на основе нажатых клавиш (WASD и стрелки).
+        Возвращает вектор направления движения.
         
         :return: Vec2(x, y), где x и y могут быть -1, 0 или 1.
         """
