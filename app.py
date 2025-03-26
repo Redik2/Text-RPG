@@ -24,7 +24,14 @@ class Application:
         self.exit()
 
     def update(self):
-        self.scenes[self.active_scene].update()
+        result = self.scenes[self.active_scene].update()
+        if not result:
+            return
+        match result:
+            case "exit":
+                exit()
+            case _:
+                self.active_scene = result
 
     def draw(self):
         self.screen.clear()
@@ -32,6 +39,3 @@ class Application:
         self.scenes[self.active_scene].draw(self.screen)
 
         self.screen.refresh()
-    
-    def exit(self):
-        curses.endwin()

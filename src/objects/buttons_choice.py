@@ -3,6 +3,7 @@ from src.objects.text import Text
 from src.objects.abstract_object import AbstractObject
 from vec2 import Vec2
 from src.screen import Screen
+from src.controller import Controller
 
 class ButtonsChoice(AbstractObject):
     def __init__(self, pos: Vec2, spacing: int = 0, type: str = "v", align: str = "top-left"):
@@ -41,3 +42,7 @@ class ButtonsChoice(AbstractObject):
         super().update()
         for i in range(len(self.buttons)):
             self.buttons[i].selected = i == self.selected_button
+        
+        axis = Controller.get_vector_change()
+        move = axis.x if self.type == "h" else axis.y
+        self.selected_button = (self.selected_button + move) % len(self.buttons)
