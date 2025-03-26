@@ -21,3 +21,11 @@ class AbstractObject(ABC):
         if not self.parent:
             return self.pos
         return self.pos + self.parent.gpos()
+    
+    def add_child(self, child):
+        self.children.append(child)
+        child.parent = self
+    
+    def set_parent(self, new_parent):
+        self.parent.children.remove(self)
+        new_parent.add_child(self)
