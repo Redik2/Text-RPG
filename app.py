@@ -1,6 +1,6 @@
 from time import sleep
 from src.screen import Screen
-from vec2 import Vec2
+from src.controller import Controller
 from src.scenes.menu import Menu
 
 
@@ -24,6 +24,8 @@ class Application:
         self.exit()
 
     def update(self):
+        Controller.update_frame_pressed()
+
         result = self.scenes[self.active_scene].update()
         if not result:
             return

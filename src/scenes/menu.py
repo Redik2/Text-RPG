@@ -12,11 +12,10 @@ class Menu(AbstractScene):
         self.buttons.add_button(Button(Vec2(0, 0), Vec2(20, 5), "Play"))
         self.buttons.add_button(Button(Vec2(0, 0), Vec2(20, 5), "Settings"))
         self.buttons.add_button(Button(Vec2(0, 0), Vec2(20, 5), "Exit"))
-        #self.add_child(Text(Vec2(1, 1), "Menu"))
+        self.pressed = self.add_child(Text(Vec2(1, 1), "Menu"))
     
     def update(self):
         super().update()
-
         if Controller.is_confirmed():
             return ["game", "settings", "exit"].__getitem__(self.buttons.selected_button)
 
